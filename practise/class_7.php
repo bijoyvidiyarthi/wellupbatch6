@@ -1,13 +1,24 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $email = validateForm($_POST['email']); 
-        $password = validateForm($_POST['password']) ; 
+    $erremail = "";
+    $errpass = "";
 
-        if($email == 'ar@gmail.com' && $password == "123"){
-            echo "Login Successful";
+    $email = "";
+    $password = "";
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        if(!empty($_POST['email'])){
+            $email = validateForm($_POST['email']); 
         }else{
-            echo "Invalid Creds";
+            $erremail = "<span style='color:red'>Email Field Is Required</span>";
         }
+
+        if(!empty($_POST['password'])){
+            $password = validateForm($_POST['password']); 
+        }else{
+            $errpass = "<span style='color:red'>Password Field Is Required</span>";
+        }
+        
         echo "<br>";
         echo $email ;
         echo "<br>";
@@ -47,10 +58,12 @@
             <div class="mb-3">
                 <label class="form-label">Email address </label>
                 <input type="text" name="email" class="form-control">
+                <?php echo $erremail; ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input type="text" name="password"class="form-control">
+                <?php echo $errpass; ?>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
